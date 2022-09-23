@@ -22,7 +22,8 @@
             </tr>
             <?php
                 include('backend/dbconnection.php');  
-                $cart = $_COOKIE['cart'];
+                if(!empty($_COOKIE['cart'])){ 
+                    $cart = $_COOKIE['cart']; 
                 $decodedPhpArray = json_decode($cart, true);
                 $ids = ""; 
                 $finalPrice = 0;
@@ -33,7 +34,8 @@
                     if (mysqli_num_rows($result)) {
                     while($row = mysqli_fetch_assoc($result)) {  
                         $currentPrice = substr($row['price'], 2);
-                        $finalPrice = $currentPrice + $finalPrice; 
+                        $multipliedCurrentPrice = $currentPrice * $item['qty'];
+                        $finalPrice = $multipliedCurrentPrice + $finalPrice;  
                         ?>
                     <tr>
                         <td>
@@ -41,16 +43,19 @@
                                 <img src="<?php echo $row['image']; ?>">
                                 <div>
                                     <p><?php echo $row['name']; ?></p>
-                                    <small>Price: <?php echo $row['price']; ?></small>
+                                    <small>Price: Rs. <?php echo $currentPrice; ?></small>
                                     <br>
                                     <!-- <a href="">Remove</a> -->
                                 </div>
                             </div>
                         </td>
                         <td><input type="number" value="<?php echo $item['qty']; ?>"></td>
-                        <td class="finalprice"><?php echo $row['price']; ?></td>
+                        <td class="finalprice">Rs. <?php echo  $multipliedCurrentPrice; ?></td>
                     </tr>
+                 
             <?php 
+            
+        }
                     }
                 }
             } 
@@ -58,21 +63,23 @@
         </table>
 
         <div class="total-price">
-
             <table>
                 <tr>
                     <td>Total</td>
-                    <td>Rs.<?php echo $finalPrice; ?></td>
+                    <td>Rs.<?php 
+                    if(!empty($finalPrice)){
+                        echo $finalPrice;
+                    }else{
+                        echo "0.00";
+                    }
+                     ?></td>
                 </tr>
             </table>
         </div>
         <div class="total-price">
             <button class="btn">Buy</button>
         </div>
-    </div>
-
-
-
+    </div> 
     <!--------footer-------->
 
     <div class="footer">

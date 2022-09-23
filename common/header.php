@@ -10,7 +10,7 @@
                 <li><a href="category.php">Categories</a></li>
                 <li><a href="cart.php">Cart</a></li> 
                 <li><a href="account.php">Account</a></li> 
-                <li><a href="admindashboard.php">Admin Dashboard</a></li> 
+                <!-- <li><a href="admindashboard.php">Admin Dashboard</a></li>  -->
             </ul>
         </nav>
         <img src="images/menu.png" class="menu-icon" onclick="menutoggle()">
