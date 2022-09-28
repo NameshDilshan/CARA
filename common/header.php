@@ -9,8 +9,16 @@
                 <li><a href="products.php">Products</a></li>
                 <li><a href="category.php">Categories</a></li>
                 <li><a href="cart.php">Cart</a></li> 
-                <li><a href="account.php">Account</a></li> 
-                <!-- <li><a href="admindashboard.php">Admin Dashboard</a></li>  -->
+                <?php
+                if (!empty($_COOKIE['userrole']) && ($_COOKIE['userrole']) == 'ADMIN'){
+                   echo " <li><a href='admindashboard.php'>Admin Dashboard</a></li>  ";
+                } 
+                 
+                if (!empty($_COOKIE['name'])){
+                   echo " <li><a href='./backend/logout.php'>Logout</a></li> ";
+                }else{
+                    echo "  <li><a href='account.php'>Account</a></li>";
+                } ?> 
             </ul>
         </nav>
         <img src="images/menu.png" class="menu-icon" onclick="menutoggle()">

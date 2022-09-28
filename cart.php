@@ -28,7 +28,9 @@
                 $ids = ""; 
                 $finalPrice = 0;
                 foreach($decodedPhpArray as $item) { 
-                    $id = $item['id'];
+                    $id = '';
+                    if(isset($item['id'])){ $id = $item['id']; }
+                   
                     $sql = "SELECT * FROM product where id = '$id' "; 
                     $result = $conn->query($sql);
                     if (mysqli_num_rows($result)) {
@@ -45,12 +47,12 @@
                                     <p><?php echo $row['name']; ?></p>
                                     <small>Price: Rs. <?php echo $currentPrice; ?></small>
                                     <br>
-                                    <!-- <a href="">Remove</a> -->
+                                    <button onclick="removeProduct(<?php echo $row['id']; ?>)" class="btn" style="border-radius: 5px;">Remove</button>
                                 </div>
                             </div>
                         </td>
-                        <td><input type="number" value="<?php echo $item['qty']; ?>"></td>
-                        <td class="finalprice">Rs. <?php echo  $multipliedCurrentPrice; ?></td>
+                        <td><input type="number" id="changeqtyId<?php echo $row['id']; ?>"  onchange="changeqty(<?php echo $row['id']; ?>, this, <?php echo $currentPrice; ?>)" value="<?php echo $item['qty']; ?>"></td>
+                        <td class="finalprice" id="finalPrice<?php echo $row['id']; ?>" >Rs. <?php echo  $multipliedCurrentPrice; ?></td>
                     </tr>
                  
             <?php 
@@ -66,7 +68,7 @@
             <table>
                 <tr>
                     <td>Total</td>
-                    <td>Rs.<?php 
+                    <td id = "finalTotal">Rs.<?php 
                     if(!empty($finalPrice)){
                         echo $finalPrice;
                     }else{
@@ -121,9 +123,54 @@
                 cookie[k.trim()] = v;
             })
             return cookie[name];
+        } 
+
+        function setCookie(name,value,days){
+            var expires = "";
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days*24*60*60*1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "")  + expires + "; path=/";
         }
-    </script>
 
-</body>
+    // add item to cookie
+    function removeProduct(id){
+        var previouscart = getCookie("cart");
+        if(previouscart != null){
+            previouscart = JSON.parse(previouscart); 
+        }else{
+            previouscart = [];
+        }
+        var finalCart = JSON.stringify(previouscart.filter(previouscart => previouscart.id !== ''+id+''));
+        console.log(previouscart);
+        setCookie("cart", finalCart, 30);
+        window.location.href = "/CARA/cart.php";
+    }
 
+    function changeqty(id, e, currentPrice){  
+        // Set Quantity item
+        if(document.getElementById('changeqtyId'+ id).value <= 0){
+            document.getElementById('changeqtyId'+ id).value = 0;
+        } 
+
+        // Set Current Price
+        if(e.value * currentPrice >= 0){
+            document.getElementById('finalPrice'+ id).innerHTML = "Rs. "+ (e.value * currentPrice);
+        }else{
+            document.getElementById('finalPrice'+ id).innerHTML = "Rs. 0";
+        }
+
+        //Set Total Price
+        var totalPrice = 0;
+        Array.from(document.getElementsByClassName('finalprice')).forEach(
+            function (element, index, array){
+                totalPrice = totalPrice + parseFloat(element.innerHTML.substring(3));
+            }
+        );
+        document.getElementById('finalTotal').innerHTML = "Rs. "+ totalPrice;
+    } 
+    </script> 
+</body> 
 </html>

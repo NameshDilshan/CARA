@@ -7,25 +7,29 @@
     <title>All Products - Cara</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css">
-
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 <body>
 <?php include('common/header.php'); ?> 
     <div class="small-container"> 
         <div class="row row-2">
             <h2>All Products</h2>
-            <select>
-                <option>Default sorting</option>
-                <option>sort by price</option>
-                <option>Sort by popularity</option>
-                <option>Sort by rating</option>
-                <option>Sort by sale</option>
+            <select onchange="location = this.options[this.selectedIndex].value;">
+                <option value="/CARA/products.php" <?php if(!isset($_GET['sort'])){echo "selected"; } ?> >Default sorting</option>
+                <option value="/CARA/products.php?sort=price" <?php if(isset($_GET['sort']) && $_GET['sort'] === 'price'){echo "selected"; } ?> >Sort by price</option>
+                <!-- <option>Sort by popularity</option> -->
+                <option value="/CARA/products.php?sort=rating" <?php if(isset($_GET['sort']) && $_GET['sort'] === 'rating' ){echo "selected"; } ?> >Sort by rating</option>
+                <!-- <option>Sort by sale</option> -->
             </select>
         </div> 
         <div class="row"> 
             <?php  
                 include('backend/dbconnection.php');  
                 $sql = "SELECT * FROM product";
+
+                if(isset($_GET['sort'])){
+                    $sql = "SELECT * FROM product ORDER BY ".$_GET['sort']. " DESC";
+                }
+
                 $result = $conn->query($sql);
                 if (mysqli_num_rows($result)) {
                 while($row = mysqli_fetch_assoc($result)) { 
@@ -35,12 +39,17 @@
                     <img src="<?php echo $row['image']; ?>" onclick="window.location.href='productdetail.php?productId=<?php echo $row['id']; ?>'">
                     <h4><?php echo $row['name']; ?></h4>
                     <div class="rating">
-                        <?php echo $row['rating']; ?>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i> 
-                        <i class="fa fa-star-o"></i>
+                        <?php
+                        echo $row['rating'];
+                        // $x = 1;
+                        // while($x <= $row['rating']) {
+                        //   echo "⭐";
+                        //   $x++;
+                        // }
+                            // for($i =0; $i <= $row['rating']; $i++){
+                            //     echo "<i class='fa fa-star'></i>";
+                            // }
+                        ?>
                     </div> 
                     <p><?php echo $row['price']; ?></p>
                 </div> 

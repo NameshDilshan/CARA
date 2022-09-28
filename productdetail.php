@@ -56,9 +56,13 @@
                             <option>Gold</option>
                             <option>Silver</option>
                         </select>
+                        <!-- <form method="POST" action="backend/addcart.php">
+                            <input type="text " id="userid"  name="userid" value="<?php echo $_COOKIE['id']; ?>" hidden /> -->
                             <input type="text " id="idaddtocart"  name="id" value="<?php echo $row['id']; ?>" hidden />
                             <input type="number" id="qtynumber"   name="qtynumber" value="1"> 
                             <button onclick="addtocart()" type="submit" class="btn">Add To Cart</button>
+                            <!-- <button type="submit" class="btn">Add To Cart</button> -->
+                        </form>
                         <h3>Product Details</h3>
                         <br>
                         <p><?php echo $row['description']; ?> </p>
@@ -222,7 +226,8 @@
         previouscart.push(jsonObject);
         var finalCart = JSON.stringify(previouscart);
         setCookie("cart", finalCart, 30);
-        window.location.href = "/CARA/cart.php";
+        alert("Product added to cart successfully!!")
+        window.location.href = "/CARA/productdetail.php?productId="+id+"";
     }
 
     </script>

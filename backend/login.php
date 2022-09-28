@@ -14,6 +14,7 @@ if($count == 1){
     setcookie("name", $row['name'], time() + (86400 * 30), "/"); // 86400 = 1 day
     setcookie("email", $row['email'], time() + (86400 * 30), "/"); // 86400 = 1 day
     setcookie("password", $row['password'], time() + (86400 * 30), "/"); // 86400 = 1 day
+    setcookie("userrole", $row['userrole'], time() + (86400 * 30), "/"); // 86400 = 1 day
     header('Location: /CARA/index.php');
 }else{  
     echo "<script>alert('Login failed. Invalid username or password.'); document.location='/CARA/account.php'</script>";
