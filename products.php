@@ -12,7 +12,8 @@
 <?php include('common/header.php'); ?> 
     <div class="small-container"> 
         <div class="row row-2">
-            <h2>All Products</h2>
+            <h2>All Products</h2>   
+            <input style="padding: 5px; border: 1px solid #3bd8ff;" type="text" id="searchInput" onkeyup="searchProduct(this)" placeholder="Search Text Here" value="<?php if(isset($_GET['search'])){echo $_GET['search']; } ?>"/> 
             <select onchange="location = this.options[this.selectedIndex].value;">
                 <option value="/CARA/products.php" <?php if(!isset($_GET['sort'])){echo "selected"; } ?> >Default sorting</option>
                 <option value="/CARA/products.php?sort=price" <?php if(isset($_GET['sort']) && $_GET['sort'] === 'price'){echo "selected"; } ?> >Sort by price</option>
@@ -24,12 +25,20 @@
         <div class="row"> 
             <?php  
                 include('backend/dbconnection.php');  
-                $sql = "SELECT * FROM product";
-
+                $sql = "SELECT * FROM product"; 
+                $where = null;
+                $sort = null;
+                if( isset($_GET['search']) ){ 
+                    $where = "'%$_GET[search]%'";
+                    echo ` where name like $where"`; 
+                }
                 if(isset($_GET['sort'])){
                     $sql = "SELECT * FROM product ORDER BY ".$_GET['sort']. " DESC";
                 }
 
+                if(isset($_GET['search'])){
+                    $sql = "SELECT * FROM product where name like $where ";
+                } 
                 $result = $conn->query($sql);
                 if (mysqli_num_rows($result)) {
                 while($row = mysqli_fetch_assoc($result)) { 
@@ -100,6 +109,35 @@
                 MenuItems.style.maxHeight = "0px";
             }
         }
+        
+        var searchInput = document.getElementById("searchInput");
+        searchInput.focus();
+        var val = searchInput.value; //store the value of the element
+        searchInput.value = ''; //clear the value of the element
+        searchInput.value = val;
+
+
+         function searchProduct(e){  
+            console.log(e.value);
+            window.location.href = "/CARA/products.php?search="+e.value+"";
+
+            // $.ajax({
+            //     url: "test.php",
+            //     type: "post",
+            //     data: values ,
+            //     success: function (response) {
+
+            //     // You will get response from your PHP page (what you echo or print)
+            //     },
+            //     error: function(jqXHR, textStatus, errorThrown) {
+            //     console.log(textStatus, errorThrown);
+            //     }
+            // });
+            // var searchInput = document.getElementById("searchInput").focus();
+            // console.log(searchInput);
+            
+        }
+        // value="<?php //if(isset($_GET['search'])){echo $_GET['search']; }?>"
     </script>
 
 </body>

@@ -51,7 +51,7 @@
                         <input type="text" name="name" placeholder="Username" required>
                         <input type="password" name="password" placeholder="Password" required>
                         <button type="submit" class="btn">Login</button>
-                        <a href="#">Forgot password</a>
+                        <a href="forgetpassword.php">Forgot or Change password</a>
                     </form>
 
                     <form id="RegForm" action="backend/register.php" method="POST">

@@ -1,7 +1,7 @@
 <div class="container">
     <div class="navbar">
         <div class="logo">
-            <a href="index.php"></a><img src="images/logo.PNG" width="125px"></a>
+            <a href="index.php"><img src="images/logo.PNG" width="125px"></a>
         </div>
         <nav>
             <ul id="MenuItems">

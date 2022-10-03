@@ -26,7 +26,7 @@
     </div>
 
     <!--------featured categories-------->
-    <div class="categories">
+    <!-- <div class="categories">
         <div class="small-container">
           <div class="row">
               <div class="col-3">
@@ -44,8 +44,27 @@
           </div>
         </div>
        
-    </div>
+    </div> -->
 
+    <div class="categories">
+        <div class="small-container">
+          <div class="row">
+              <div class="col-3">
+                  <img src="images/category-1.jpeg" onclick="window.location.href='category.php?sort=Earrings'">
+                  <h><a href="category.php?sort=Earrings">Earrings</a></h>
+              </div>
+              <div class="col-3">
+                <img src="images/category-2.jpg" onclick="window.location.href='category.php?sort=Necklaces'">
+                <h><a href="category.php?sort=Necklaces">Necklaces</a></h>
+              </div>
+              <div class="col-3">
+                <img src="images/category-3.jpg" onclick="window.location.href='category.php?sort=Rings'">
+                <h><a href="category.php?sort=Rings">Rings</a></h>
+              </div>
+          </div>
+        </div> 
+    </div>
+    
     
      <!--------featured products-------->
         <div class="small-container">
@@ -111,6 +130,18 @@
      <div class="footer">
          <div class="container">
              <div class="row">
+                <div class="footer-col-1">
+                    <form action="backend/sendmail.php" method="POST">
+                        <h3>Contact Us</h3>
+                        <label for="name"> Name : </label>
+                        <input type="text" name="name" placeholder="Name" required>
+                        <label for="email"> Email : </label>
+                        <input type="text" name="email" placeholder="Email" required>
+                        <label for="message"> Message : </label>
+                        <input type="text" name="message" placeholder="Message" required>
+                        <button type="submit" class="btn">Send Email</button> 
+                    </form> 
+                 </div>
                  <div class="footer-col-1">
                      <h3>Quote of the Month</h3>
                      <p>Perfect From Beginning to End</p>

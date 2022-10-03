@@ -37,20 +37,47 @@
         <div class="small-container">
           <div class="row">
               <div class="col-3">
-                  <img src="images/category-1.jpeg">
-                  <h>Earrings</h>
+                  <img src="images/category-1.jpeg" onclick="window.location.href='category.php?sort=Earrings'">
+                  <h><a href="category.php?sort=Earrings">Earrings</a></h>
               </div>
               <div class="col-3">
-                <img src="images/category-2.jpg">
-                <h>Necklaces</h>
+                <img src="images/category-2.jpg" onclick="window.location.href='category.php?sort=Necklaces'">
+                <h><a href="category.php?sort=Necklaces">Necklaces</a></h>
               </div>
               <div class="col-3">
-                <img src="images/category-3.jpg">
-                <h>Rings</h>
+                <img src="images/category-3.jpg" onclick="window.location.href='category.php?sort=Rings'">
+                <h><a href="category.php?sort=Rings">Rings</a></h>
               </div>
           </div>
-        </div>
-       
+        </div> 
+    </div>
+
+    <div class="small-container">
+    <div class="row"> 
+            <?php  
+                include('backend/dbconnection.php');  
+                $sql = "SELECT * FROM product"; 
+                if(isset($_GET['sort'])){
+                    $sql = "SELECT * FROM product WHERE category = '".$_GET['sort']."' ";
+                }
+
+                $result = $conn->query($sql);
+                if (mysqli_num_rows($result)) {
+                while($row = mysqli_fetch_assoc($result)) { 
+                ?>
+                
+                <div class="col-4">
+                    <img src="<?php echo $row['image']; ?>" onclick="window.location.href='productdetail.php?productId=<?php echo $row['id']; ?>'">
+                    <h4><?php echo $row['name']; ?></h4>
+                    <div class="rating">
+                        <?php echo $row['rating'];  ?>
+                    </div> 
+                    <p><?php echo $row['price']; ?></p>
+                </div> 
+            <?php 
+                }
+            } 
+            ?>  
     </div>
 
     <!--------footer-------->
