@@ -79,7 +79,7 @@
             </table>
         </div>
         <div class="total-price">
-            <button class="btn">Buy</button>
+            <button class="btn" onclick="window.location.href='checkout.php'">Buy</button>
         </div>
     </div> 
     <!--------footer-------->

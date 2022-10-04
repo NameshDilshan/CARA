@@ -12,6 +12,7 @@
                 <?php
                 if (!empty($_COOKIE['userrole']) && ($_COOKIE['userrole']) == 'ADMIN'){
                    echo " <li><a href='admindashboard.php'>Admin Dashboard</a></li>  ";
+                   echo " <li><a href='viewcheckout.php'>View Checkout</a></li>  ";
                 } 
                  
                 if (!empty($_COOKIE['name'])){

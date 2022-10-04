@@ -38,7 +38,6 @@
              <div class="col-2">
                 <img src="images/accountimg1.jpg" width="80%">
              </div>
-
              <div class="col-2">
                 <div class="form-container">
                     <div class="form-btn">
@@ -46,33 +45,24 @@
                         <span onclick="register()">Register</span>
                         <hr id="Indicator">
                     </div>
-
                     <form id="LoginForm" action="backend/login.php" method="POST">
                         <input type="text" name="name" placeholder="Username" required>
                         <input type="password" name="password" placeholder="Password" required>
                         <button type="submit" class="btn">Login</button>
                         <a href="forgetpassword.php">Forgot or Change password</a>
                     </form>
-
                     <form id="RegForm" action="backend/register.php" method="POST">
                         <input type="text" name="name" placeholder="Username" required>
                         <input type="email" name="email" placeholder="Email" required>
                         <input type="password" name="password" placeholder="Password" required>
                         <button type="submit" class="btn">Register</button>
-                    </form>
-                    
+                    </form> 
                 </div>
              </div>   
         </div>
     </div>
 </div>
-
-
-
-        
-        
 <!--------footer-------->
- 
      <div class="footer">
          <div class="container">
              <div class="row">
@@ -130,20 +120,6 @@
         LoginForm.style.transform= "translateX(300PX)";
         Indicator.style.transform= "translateX(0PX)";
         }
-       
-
-
-
   </script>
-
-       
-
-
-
-
-
-
-
-
     </body>
 </html>

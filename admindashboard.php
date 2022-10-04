@@ -6,7 +6,7 @@
     <title>Admin Dashboard - Cara</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css"> -->
     <style>
         .column {
             float: left;
@@ -18,6 +18,11 @@
             content: "";
             display: table;
             clear: both;
+        }
+        table {
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
         }
     </style>
 </head>
@@ -73,7 +78,7 @@
     <?php 
     $sql = "SELECT * FROM product ORDER BY id DESC";
     $result = mysqli_query($conn, $sql);
-    ?>     
+    ?>   
     <button  onClick="triggerShowHideAddDiv()" class="btn" style="margin-left: 50px; margin-bottom: 5px;">Add New Product</button> 
     <br/><br/>  
 	<table border=1 style="width:'80%'; margin: 20px; "> 
@@ -117,30 +122,8 @@
 	}
 	?>
 	</table>
-</body>
+</body> 
 
-
-
-    <!--------footer-------->
-    <!-- <div class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="footer-col-1">
-                    <h3>Quote of the Month</h3>
-                    <p>Perfect From Beginning to End</p>
-                </div>
-                <div class="footer-col-2"></div>
-                <h3>Follow us on</h3>
-                <ul>
-                    <li>Instragram</li>
-                    <li>Facebook</li>
-                </ul>
-            </div>
-        </div>
-        <hr>
-        <p class="copyright">Copyright CARA 2022</p>
-    </div> -->
-    <!----------js for toggle menu---------->
     <script>
         var MenuItems = document.getElementById("MenuItems");
         MenuItems.style.maxHeight = "0px";
@@ -151,30 +134,6 @@
                 MenuItems.style.maxHeight = "0px";
             }
         }
-    </script>
-    <!----------js for toggle Form--------->
-    <script>
-        var LoginForm = document.getElementById("LoginForm");
-        var RegForm = document.getElementById("RegForm");
-        var Indicator = document.getElementById("Indicator");
-        function register() {
-            RegForm.style.transform = "translateX(0PX)";
-            LoginForm.style.transform = "translateX(0PX)";
-            Indicator.style.transform = "translateX(100PX)";
-        }
-        function login() {
-            RegForm.style.transform = "translateX(300PX)";
-            LoginForm.style.transform = "translateX(300PX)";
-            Indicator.style.transform = "translateX(0PX)";
-        }
-
-        function triggerShowHideAddDiv(){
-            if(document.getElementById('addProductDivId').style.display == 'block'){
-                document.getElementById('addProductDivId').style.display = 'none'; 
-            }else{
-                document.getElementById('addProductDivId').style.display = 'block'; 
-            }
-        }
-    </script>
+    </script>  
 </body>
 </html>
