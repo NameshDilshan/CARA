@@ -33,7 +33,7 @@
             
 
     <!--------featured categories-------->
-    <div class="categories">
+    <!-- <div class="categories">
         <div class="small-container">
           <div class="row">
               <div class="col-3">
@@ -50,7 +50,25 @@
               </div>
           </div>
         </div> 
-    </div>
+    </div> -->
+    <div class="categories">
+        <div class="small-container">
+          <div class="row">
+          <?php  
+                   include('backend/dbconnection.php');  
+                   $sql = "SELECT * FROM category";
+                   $result = $conn->query($sql);
+                   if (mysqli_num_rows($result)) {
+                   while($row = mysqli_fetch_assoc($result)) { 
+                   ?>
+                <div class="col-3">
+                    <img src="<?php echo $row['image']; ?>" onclick="window.location.href='category.php?sort=<?php echo $row['name']; ?>'">
+                    <h><a href="category.php?sort=<?php echo $row['name']; ?>"><?php echo $row['name']; ?></a></h>
+                </div>
+            <?php 
+                }
+            }
+            ?>
 
     <div class="small-container">
     <div class="row"> 

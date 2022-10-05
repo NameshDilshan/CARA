@@ -13,8 +13,11 @@
                 if (!empty($_COOKIE['userrole']) && ($_COOKIE['userrole']) == 'ADMIN'){
                    echo " <li><a href='admindashboard.php'>Admin Dashboard</a></li>  ";
                    echo " <li><a href='viewcheckout.php'>View Checkout</a></li>  ";
-                } 
-                 
+                }
+                if (!empty($_COOKIE['userrole']) && ($_COOKIE['userrole']) == 'Customer'){
+                    $id = $_COOKIE["id"];
+                    echo " <li><a href='customerviewcheckout.php?id=$id'>View Checkout</a></li>  ";
+                }
                 if (!empty($_COOKIE['name'])){
                    echo " <li><a href='./backend/logout.php'>Logout</a></li> ";
                 }else{

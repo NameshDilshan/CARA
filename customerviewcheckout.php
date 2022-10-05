@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Cara</title>
+    <title>Customer View Chekcout - Cara</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"> 
     <style>
@@ -16,14 +16,17 @@
 <body>
     <?php include('common/header.php');
     include('backend/dbconnection.php'); 
-
-    $sql = "SELECT * FROM checkout ORDER BY id DESC";
-    $result = mysqli_query($conn, $sql);
+    if(isset($_GET['id'])){
+        $id = $_GET['id'];
+        $sql = "SELECT * FROM checkout WHERE $id ORDER BY id DESC";
+        $result = mysqli_query($conn, $sql);
+    }else{
+        $result = [];
+    }
     ?>     
 	<table border=1 style="width: 80%; text-align: center; align-items: center;"> 
-	<tr bgcolor='#CCCCCC'>
-		<td>ID</td>
-		<td>Products</td>
+	<tr bgcolor='#CCCCCC'>  
+        <td>Produts</td>
 		<td>Name</td>
 		<td>Email</td>
         <td>Address</td>
@@ -36,8 +39,7 @@
 	</tr>
 	<?php  
         while($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) { 		
-            echo "<tr>";
-            echo "<td>".$res['id']."</td>";
+            echo "<tr>"; 
             echo "<td>";
             $products = $res['products'];
             $decodedPhpArray = json_decode($products, true);
@@ -50,9 +52,10 @@
                 while($row = mysqli_fetch_assoc($result)) {
                     $currentPrice = substr($row['price'], 2);
                     echo "<p>●   ".$row['name']." - ".$item['qty']. "</p>";
+                    echo "<hr />";
                 }
             } 
-        }  
+            }  
             echo "</td>"; 
             echo "<td>".$res['name']."</td>"; 
             echo "<td>".$res['email']."</td>";  

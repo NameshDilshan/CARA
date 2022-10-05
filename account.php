@@ -54,9 +54,10 @@
                     <form id="RegForm" action="backend/register.php" method="POST">
                         <input type="text" name="name" placeholder="Username" required>
                         <input type="email" name="email" placeholder="Email" required>
+                        <input type="text" name="address" placeholder="Address" required>
                         <input type="password" name="password" placeholder="Password" required>
                         <button type="submit" class="btn">Register</button>
-                    </form> 
+                    </form>
                 </div>
              </div>   
         </div>

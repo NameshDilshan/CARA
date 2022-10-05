@@ -30,6 +30,24 @@
     <?php include('common/header.php');
     include('backend/dbconnection.php'); 
     ?>
+<div style="background: radial-gradient(#fff,#7ec9d6); height: 200px; margin-top: 10px; display:none;" id="addCategoryDivId">
+    <div class="container">
+        <div class="row center">
+            <form id="addCategoryForm" action="backend/addcategory.php" method="POST">
+                <div class="column">
+                    <label for="name"> Name : </label>
+                    <input type="text" name="name" placeholder="Name" required>
+                    <a href="uploadFiles.php"><button type="button" class="btn">Upload Images</button></a> 
+                </div>
+                <div class="column"> 
+                    <label for="image"> Image : </label>
+                    <input type="text" name="image" placeholder="images/image_one.jpg" required> 
+                    <button type="submit" class="btn">Add Category</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div> 
 
 <div style="background: radial-gradient(#fff,#7ec9d6); height: 500px; margin-top: 10px; display:none;" id="addProductDivId">
     <div class="container">
@@ -52,7 +70,7 @@
                 <div class="column"> 
                     <label for="description"> description : </label>
                     <input type="text" name="description" placeholder="description" required> 
-                    <label for="category"> image : </label>
+                    <label for="category"> Category : </label>
                     <input type="text" name="category" placeholder="category" required> 
                     <label for="image_one"> image_one : </label>
                     <input type="text" name="image_one" placeholder="images/image_one.jpg" required> 
@@ -75,13 +93,64 @@
         </div>
     </div>
 </div> 
+    <button  onClick="triggerShowHideAddDiv()" class="btn" style="margin-left: 50px; margin-bottom: 5px;">Add New Product</button> 
+    <button  onClick="triggerShowHideAddCategoryDiv()" class="btn" style="margin-left: 50px; margin-bottom: 5px;">Add New Category</button> 
+    
+
+    <!-- Users -->
+    <h2 style="text-align: center;">Users</h2>
+    <?php 
+    $sql = "SELECT * FROM customer ORDER BY id DESC";
+    $result = mysqli_query($conn, $sql);
+    ?>   
+    <table border=1 style="width:'80%'; margin: 20px; "> 
+	<tr bgcolor='#CCCCCC'>
+		<td>Name</td>
+        <td>Email</td>
+		<td>Address</td>
+		<td>Userrole</td>
+        <td>Delete</td>
+	</tr>
+	<?php  
+	while($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) { 		
+		echo "<tr>";
+		echo "<td>".$res['name']."</td>";
+        echo "<td>".$res['email']."</td>"; 
+        echo "<td>".$res['address']."</td>"; 
+        echo "<td>".$res['userrole']."</td>"; 
+		echo "<td><a href=\"backend/deleteuser.php?id=$res[id]\" onClick=\"return confirm('Are you sure you want to delete?')\">Delete</a></td>";		
+	}
+	?>
+	</table>
+    <!-- Categories -->
+    <h2 style="text-align: center;">Categories</h2>
+    <?php 
+    $sql = "SELECT * FROM category ORDER BY id DESC";
+    $result = mysqli_query($conn, $sql);
+    ?>   
+    <table border=1 style="width:'80%'; margin: 20px; "> 
+	<tr bgcolor='#CCCCCC'>
+		<td>Name</td>
+		<td>Image</td>
+		<td>Update</td>
+	</tr>
+	<?php  
+	while($res = mysqli_fetch_array($result, MYSQLI_ASSOC)) { 		
+		echo "<tr>";
+		echo "<td>".$res['name']."</td>"; 
+        echo "<td>".$res['image']."</td>"; 
+		echo "<td><a href=\"editcategory.php?id=$res[id]\">Edit</a> | <a href=\"backend/deletecategory.php?id=$res[id]\" onClick=\"return confirm('Are you sure you want to delete?')\">Delete</a></td>";		
+	}
+	?>
+	</table>
+
+    <!-- Products -->
+    <h2 style="text-align: center;">Products</h2>
     <?php 
     $sql = "SELECT * FROM product ORDER BY id DESC";
     $result = mysqli_query($conn, $sql);
     ?>   
-    <button  onClick="triggerShowHideAddDiv()" class="btn" style="margin-left: 50px; margin-bottom: 5px;">Add New Product</button> 
-    <br/><br/>  
-	<table border=1 style="width:'80%'; margin: 20px; "> 
+    <table border=1 style="width:'80%'; margin: 20px; "> 
 	<tr bgcolor='#CCCCCC'>
 		<td>Name</td>
 		<td>Rating</td>
@@ -134,6 +203,24 @@
                 MenuItems.style.maxHeight = "0px";
             }
         }
+
+        function triggerShowHideAddDiv(){
+            if(document.getElementById('addProductDivId').style.display == 'block'){
+                document.getElementById('addProductDivId').style.display = 'none'; 
+            }else{
+                document.getElementById('addProductDivId').style.display = 'block'; 
+            }
+        }
+
+        function triggerShowHideAddCategoryDiv(){
+            if(document.getElementById('addCategoryDivId').style.display == 'block'){
+                document.getElementById('addCategoryDivId').style.display = 'none'; 
+            }else{
+                document.getElementById('addCategoryDivId').style.display = 'block'; 
+            }
+        }
+
+
     </script>  
 </body>
 </html>

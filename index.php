@@ -49,7 +49,23 @@
     <div class="categories">
         <div class="small-container">
           <div class="row">
-              <div class="col-3">
+          <?php  
+                   include('backend/dbconnection.php');  
+                   $sql = "SELECT * FROM category";
+                   $result = $conn->query($sql);
+                   if (mysqli_num_rows($result)) {
+                   while($row = mysqli_fetch_assoc($result)) { 
+                   ?>
+                <div class="col-3">
+                    <img src="<?php echo $row['image']; ?>" onclick="window.location.href='category.php?sort=<?php echo $row['name']; ?>'">
+                    <h><a href="category.php?sort=<?php echo $row['name']; ?>"><?php echo $row['name']; ?></a></h>
+                </div>
+            <?php 
+                }
+            }
+            ?>
+
+              <!-- <div class="col-3">
                   <img src="images/category-1.jpeg" onclick="window.location.href='category.php?sort=Earrings'">
                   <h><a href="category.php?sort=Earrings">Earrings</a></h>
               </div>
@@ -60,11 +76,11 @@
               <div class="col-3">
                 <img src="images/category-3.jpg" onclick="window.location.href='category.php?sort=Rings'">
                 <h><a href="category.php?sort=Rings">Rings</a></h>
-              </div>
+              </div> -->
           </div>
         </div> 
     </div>
-    
+
     
      <!--------featured products-------->
         <div class="small-container">
