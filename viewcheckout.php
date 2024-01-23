@@ -18,7 +18,7 @@
     include('backend/dbconnection.php'); 
 
     $sql = "SELECT * FROM checkout ORDER BY id DESC";
-    $result = mysqli_query($conn, $sql);
+    $result = mysqli_query($conn, $sql); 
     ?>     
 	<table border=1 style="width: 80%; text-align: center; align-items: center;"> 
 	<tr bgcolor='#CCCCCC'>
@@ -45,9 +45,9 @@
                 $id = '';
                 if(isset($item['id'])){ $id = $item['id']; } 
                 $sql = "SELECT * FROM product where id = '$id' "; 
-                $result = $conn->query($sql);
-                if (mysqli_num_rows($result)) {
-                while($row = mysqli_fetch_assoc($result)) {
+                $resultx = $conn->query($sql);
+                if (mysqli_num_rows($resultx)) {
+                while($row = mysqli_fetch_assoc($resultx)) {
                     $currentPrice = substr($row['price'], 2);
                     echo "<p>●   ".$row['name']." - ".$item['qty']. "</p>";
                 }

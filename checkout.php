@@ -30,6 +30,7 @@
         <div class="row"> 
             <form id="addProductForm" action="backend/addcheckout.php" method="POST">
                 <input type="text" name="products" value=<?php echo nl2br($_COOKIE['cart']); ?>  hidden="hidden"/>
+                <input type="text" name="customerid" value=<?php echo $_COOKIE['id']; ?>  hidden="hidden"/>
                 <div class="column">
                     <label for="name"> Full Name : </label>
                     <input type="text" name="name" placeholder="Name" required>
